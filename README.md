@@ -139,9 +139,9 @@ The following aspects were found interesting in the data:<br>
 •	data <br>
 |- portfolio.json # contains information regarding the offers<br>
 |- profile.json # contains detail regarding individual users<br>
-•	|- transcript.json # contains user transaction data <br>
-•	|- transaction_master.csv # contains detailed transaction, user profile and offer/portfolio data including the group a user is assigned to based on offer completion.<br>
-•	|-Starbucks_Framework.html # Blog containing a detailed analysis of the data and predictive model
+•	transcript.json # contains user transaction data <br>
+•	transaction_master.csv # contains detailed transaction, user profile and offer/portfolio data including the group a user is assigned to based on offer completion.<br>
+• Starbucks_Framework.html # Blog containing a detailed analysis of the data and predictive model
 
 ### Program Execution
 The program can be executed by starting Python 3, loading the Jupyter notebook and choosing “Kernel: from the drop down menu and choosing “Restart and Run All”.
