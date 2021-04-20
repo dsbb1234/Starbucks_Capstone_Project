@@ -33,79 +33,80 @@ As this data was not part of a randomized experiment, findings are not assumed t
 
 #### Libraries used in this project:
 
-Python 3
-pandas 
-numpy
-math
-json
-matplotlib, pyplot
-DecisionTreeClassifier
-RandomForestClassifier
-train_test_split
-StandardScaler
-Pipeline
-accuracy_score
-confusion_matrix
-f1_score
-cross_val_score
-GridSearchCV
-metrics
-classification_report
-warnings
-seaborn
+Python 3<br>
+pandas <br>
+numpy<br>
+math<br>
+json<br>
+matplotlib, pyplot<br>
+DecisionTreeClassifier<br>
+RandomForestClassifier<br>
+train_test_split<br>
+StandardScaler<br>
+Pipeline<br>
+accuracy_score<br>
+confusion_matrix<br>
+f1_score<br>
+cross_val_score<br>
+GridSearchCV<br>
+metrics<br>
+classification_report<br>
+warnings<br>
+seaborn<br>
 
 ### Dataset Overview:
 
-The simulated data used in this analysis is contained in three files:
-•	portfolio.json - containing offer ids and meta data about each offer (duration, type, etc.)
-•	profile.json - demographic data for each customer
-•	transcript.json - records for transactions, offers received, offers viewed, and offers completed
+The simulated data used in this analysis is contained in three files:<br>
+
+•	portfolio.json - containing offer ids and meta data about each offer (duration, type, etc.)<br>
+•	profile.json - demographic data for each customer<br>
+•	transcript.json - records for transactions, offers received, offers viewed, and offers completed<br>
 
 Here is the schema and explanation of each variable in the files:
 
 #### portfolio.json
-•	id (string) - offer id
-•	offer_type (string) - type of offer ie BOGO, discount, informational
-•	difficulty (int) - minimum required spend to complete an offer
-•	reward (int) - reward given for completing an offer
-•	duration (int) - time for offer to be open, in days
+•	id (string) - offer id<br>
+•	offer_type (string) - type of offer ie BOGO, discount, informational<br>
+•	difficulty (int) - minimum required spend to complete an offer<br>
+•	reward (int) - reward given for completing an offer<br>
+•	duration (int) - time for offer to be open, in days<br>
 •	channels (list of strings)
 
 #### profile.json
-•	age (int) - age of the customer
-•	became_member_on (int) - date when customer created an app account
-•	gender (str) - gender of the customer (note some entries contain 'O' for other rather than M or F)
-•	id (str) - customer id
-•	income (float) - customer's income
+•	age (int) - age of the customer<br>
+•	became_member_on (int) - date when customer created an app account<br>
+•	gender (str) - gender of the customer (note some entries contain 'O' for other rather than M or F)<br>
+•	id (str) - customer id<br>
+•	income (float) - customer's income<br>
 
 #### transcript.json
-•	event (str) - record description (ie transaction, offer received, offer viewed, etc.)
-•	person (str) - customer id
-•	time (int) - time in hours since start of test. The data begins at time t=0
-•	value - (dict of strings) - either an offer id or transaction amount depending on the record
+•	event (str) - record description (ie transaction, offer received, offer viewed, etc.)<br>
+•	person (str) - customer id<br>
+•	time (int) - time in hours since start of test. The data begins at time t=0<br>
+•	value - (dict of strings) - either an offer id or transaction amount depending on the record<br>
 
 Using a variety of data wrangling techniques, I evaluated the file, discovering a number of opportunities to improve the quality and tidyness of the data. The following issues were found with the datasets:
 
 ### Summary of dataframe issues
 
 #### Portfolio
-•	channels have multiple items. We should break this into separate columns.
-•	Separate the offer types into individual columns
-•	Consider changing the portfolio ID so it is between 1 and 10 to make for better visibility
-•	Rename id to offer_number as it can be confused with the id in the profile dataframe
+•	channels have multiple items. We should break this into separate columns.<br>
+•	Separate the offer types into individual columns<br>
+•	Consider changing the portfolio ID so it is between 1 and 10 to make for better visibility<br>
+•	Rename id to offer_number as it can be confused with the id in the profile dataframe<br>
 •	Convert the time field from days to hours to match transcript
 
 #### Profile
-•	Some participants appear to have an excessive age of 118. Investigate further.
-•	became_member_on should be converted to datetime
-•	Some gender are showing as None
-•	We should consider simplifying id to be a number starting at 1 and renaming id to user_id for clarity
-•	Income has some NaNs. Will need to consider how to treat these NaNs.
+•	Some participants appear to have an excessive age of 118. Investigate further.<br>
+•	became_member_on should be converted to datetime<br>
+•	Some gender are showing as None<br>
+•	We should consider simplifying id to be a number starting at 1 and renaming id to user_id for clarity<br>
+•	Income has some NaNs. Will need to consider how to treat these NaNs.<br>
 •	became_member_on should be converted to datetime
 
 #### Transcript
-•	Need to clean the value column of the "{'offer id': " and "}"
-•	Some rows in the value column contain a combination of the offer id and reward amount. These will need to be separated and cleaned
+•	Need to clean the value column of the "{'offer id': " and "}"<br>
+•	Some rows in the value column contain a combination of the offer id and reward amount. These will need to be separated and cleaned<br>
 •	The value field also contains some amounts (spend). These will also need to be cleaned and placed into their own separate column.
 
 ### Main features of the dataset driving my interest:
@@ -114,32 +115,32 @@ I have a rich history as a Product Manager.  I am very interested in using data 
 
 ### Summary of Findings:
 
-The following aspects were found interesting in the data:
-•	Looking at user profile data, the median income is $64,000. 
-•	The largest reported income in the group was 120,000 and it was reported by user 17000.
-•	Females seem to report a slightly higher mean income than males.  
-•	While the effective offer group has slightly more male users, the female users are spending more.  
-•	Customers in the 1-3 year tenure group tended to purchase more, followed by the 3-5 year group.
-•	There appear to be slight differences in median income. Users in the 1-3 year range have 62,000 dollars in median annual income, while users in the 3-5 year range have 59,000 dollars in median annual income.
-•	Offers 6, 7 and 9 had the largest number of media types, reaching the largest number of users. Offers 3, 4, 5, 8 and 10 had fewer media types than the other offers.  
-•	Offer number 7 had the largest number of transactions, followed by 9 and 1.  
-•	There appear to be a slightly larger group of males reached by the effective offers.
-•	Offers 1 and 2 are slightly more effective for female when compared to simulated male users.
-•	Offers 4, 6, 7, 9 and 10 had at least a 6% difference in effectiveness compared to the simulated female users.
-•	While female users spend more than males, the males have a larger number of transactions.
-•	For females, discount and gender are almost equally prefered, while males clearly prefer discount. Users with undefined gender clearly preferred discount to BOGO.
-•	In all cases, informational promos were least preferred.
-•	The data seems to confirm that users assigned to group 1 (effective offers) spend more than those in group 3 (customers who purchase regardless of offer). While this would seem to indicate it makes sense to provide these promotions, financial analysis would need to be conducted to ensure there is a cost benefit.
+The following aspects were found interesting in the data:<br>
+•	Looking at user profile data, the median income is $64,000. <br>
+•	The largest reported income in the group was 120,000 and it was reported by user 17000.<br>
+•	Females seem to report a slightly higher mean income than males.  <br>
+•	While the effective offer group has slightly more male users, the female users are spending more. <br> 
+•	Customers in the 1-3 year tenure group tended to purchase more, followed by the 3-5 year group.<br>
+•	There appear to be slight differences in median income. Users in the 1-3 year range have 62,000 dollars in median annual income, while users in the 3-5 year range have 59,000 dollars in median annual income.<br>
+•	Offers 6, 7 and 9 had the largest number of media types, reaching the largest number of users. Offers 3, 4, 5, 8 and 10 had fewer media types than the other offers. <br> 
+•	Offer number 7 had the largest number of transactions, followed by 9 and 1. <br> 
+•	There appear to be a slightly larger group of males reached by the effective offers.<br>
+•	Offers 1 and 2 are slightly more effective for female when compared to simulated male users.<br>
+•	Offers 4, 6, 7, 9 and 10 had at least a 6% difference in effectiveness compared to the simulated female users.<br>
+•	While female users spend more than males, the males have a larger number of transactions.<br>
+•	For females, discount and gender are almost equally prefered, while males clearly prefer discount. Users with undefined gender clearly preferred discount to BOGO.<br>
+•	In all cases, informational promos were least preferred.<br>
+•	The data seems to confirm that users assigned to group 1 (effective offers) spend more than those in group 3 (customers who purchase regardless of offer). While this would seem to indicate it makes sense to provide these promotions, financial analysis would need to be conducted to ensure there is a cost benefit.<br>
 •	We were successful in creating a machine learning model to identify which offers are effective for users. Using a combination of user, transaction, offer and engineered feature data, we were able to achieve over 90% test accuracy.  We demonstrated that a machine learning model can be created to predict if an offer will be effective.  Membership Tenure, Age, Income, and amount spent are the most important features.  
 
 ### Files in the Repository
 
-•	starbucks_capstone_ntbk_v1 – The Jupyter notebook containing a detailed analysis and machine learning models.
-•	data 
-|- portfolio.json # contains information regarding the offers
-|- profile.json # contains detail regarding individual users
-•	|- transcript.json # contains user transaction data 
-•	|- transaction_master.csv # contains detailed transaction, user profile and offer/portfolio data including the group a user is assigned to based on offer completion.
+•	starbucks_capstone_ntbk_v1 – The Jupyter notebook containing a detailed analysis and machine learning models.<br>
+•	data <br>
+|- portfolio.json # contains information regarding the offers<br>
+|- profile.json # contains detail regarding individual users<br>
+•	|- transcript.json # contains user transaction data <br>
+•	|- transaction_master.csv # contains detailed transaction, user profile and offer/portfolio data including the group a user is assigned to based on offer completion.<br>
 •	|-Starbucks_Framework.html # Blog containing a detailed analysis of the data and predictive model
 
 ### Program Execution
