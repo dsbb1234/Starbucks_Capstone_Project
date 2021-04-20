@@ -9,7 +9,7 @@ The project was introduced by Richard Sharp, Data Scientist at Starbucks. This p
 Data for this project was provided by Udacity at the following URL
 https://classroom.udacity.com/nanodegrees/nd025/parts/84260e1f-2926-4127-895f-cc4432b05059/modules/78dd932d-67a7-4039-9907-f8e6211e4590/lessons/d6285247-6bc0-4783-b118-6f41981b9469/concepts/59623bdf-9fdf-4b34-a5f8-c56dc75fc512
 
-###Problem Statement
+### Problem Statement
 
 As was mentioned in the previous paragraph, this project seeks to identify which offers are effective for what people. This will be accomplished using data manipulation and feature engineering. In addition, we will seek to understand which features are more important in determining if an offer is effective, and finally, seeing if we can predict which offer types are effective.
 In exploring the data, we will also seek to answer the following questions:<br>
