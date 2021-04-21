@@ -4,6 +4,8 @@
 
 The project was introduced by Richard Sharp, Data Scientist at Starbucks. This project contains simulated data to mimic users of the Starbucks app. The data models Starbucks sending out offers (Buy One Get One/BOGO, Discounts off a purchase, and Informational offers. The goal of the project is to create and demonstrate a framework that can be used to discover which offers are the best for each user. We will accomplish this by creating user segments. Since this project was not conducted as a random experiment, no causality can be concluded.
 
+The link to the blog supporting this project is https://david-sutula.medium.com/creating-a-framework-for-data-analysis-using-starbucks-simulated-data-f3f26648263a
+
 #### Data Source:
 
 Data for this project was provided by Udacity at the following URL
